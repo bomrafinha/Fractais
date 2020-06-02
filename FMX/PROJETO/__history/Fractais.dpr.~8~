@@ -1,0 +1,13 @@
+program Fractais;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  U_Fractais in '..\PAS\Fractais\U_Fractais.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.Run;
+end.

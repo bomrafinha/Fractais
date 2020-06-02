@@ -1,0 +1,186 @@
+unit U_Fractal_01;
+
+interface
+
+uses
+  Math, Winapi.Windows, Vcl.Graphics, Vcl.ExtCtrls;
+
+type
+  TCoordenadas = packed record
+    X : Integer;
+    Y : Integer;
+
+  end;
+
+  TAresta = packed record
+    canvas : TCanvas;
+    pontoInicial : TCoordenadas;
+    angulo : integer;
+    vezes : Integer;
+    passo : integer;
+    marcapasso : Integer;
+    angulo_esquerdo : Integer;
+    angulo_direito : Integer;
+    cor : cardinal;
+
+  end;
+
+  TFractal01 = class(TObject)
+  private
+    var
+      fAresta : TAresta;
+      fCoordenadas : TCoordenadas;
+
+    procedure desenharRamos(aresta : TAresta);
+
+    procedure fractal01(PaintBox01 : TPaintBox);
+    procedure fractal02(PaintBox01 : TPaintBox);
+
+  public
+     constructor Create(PaintBox01 : TPaintBox; tipo : Integer);
+
+  end;
+
+implementation
+
+{ TFractal01 }
+
+constructor TFractal01.Create(PaintBox01 : TPaintBox; tipo : Integer);
+begin
+  inherited Create;
+
+  case tipo of
+    1: fractal01(PaintBox01);
+    2: fractal02(PaintBox01);
+
+  end;
+
+end;
+
+procedure TFractal01.desenharRamos(aresta: TAresta);
+var
+  pontoFinal : TCoordenadas;
+  arestaAuxiliar : TAresta;
+
+begin
+  if aresta.passo > 0 then
+  begin
+    with aresta do
+    begin
+      pontoFinal.X := pontoInicial.X + trunc(cos(degtorad(angulo)) * passo);
+      pontoFinal.Y := pontoInicial.Y + trunc(sin(degtorad(angulo)) * passo);
+
+      Canvas.Pen.Color := cor;
+
+      Canvas.MoveTo(pontoInicial.X, pontoInicial.Y);
+      Canvas.LineTo(pontoFinal.X, pontoFinal.Y);
+
+      Canvas.Refresh;
+
+      sleep(1);
+
+    end;
+
+    with arestaAuxiliar do
+    begin
+      arestaAuxiliar := aresta;
+      pontoInicial := pontoFinal;
+      angulo := aresta.angulo - angulo_esquerdo;
+      passo := aresta.passo - marcapasso;
+
+      desenharRamos(arestaAuxiliar);
+
+      arestaAuxiliar := aresta;
+      pontoInicial := pontoFinal;
+      angulo := aresta.angulo + angulo_direito;
+      passo := aresta.passo - marcapasso;
+
+      desenharRamos(arestaAuxiliar);
+    end;
+  end;
+
+end;
+
+procedure TFractal01.fractal01(PaintBox01: TPaintBox);
+var
+  i : Integer;
+
+begin
+
+  //Arvore
+
+  fCoordenadas.X := PaintBox01.Width div 2;
+  fCoordenadas.Y := PaintBox01.Height;
+  fAresta.canvas := PaintBox01.Canvas;
+  fAresta.pontoInicial := fCoordenadas;
+  fAresta.vezes := 10;
+  fAresta.angulo := -90;
+  fAresta.passo := 86;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+  fAresta.angulo_esquerdo := 20;
+  fAresta.angulo_direito := 20;
+  fAresta.cor := clYellow;
+  DesenharRamos(fAresta);
+
+  fAresta.passo := 90;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+  fAresta.cor := clOlive;
+  DesenharRamos(fAresta);
+
+  fAresta.passo := 84;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+  fAresta.cor := clGreen;
+  DesenharRamos(fAresta);
+
+  i := fAresta.passo;
+
+  while i >= 60 do
+  begin
+    i := i - 4;
+    fAresta.passo := i;
+    fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+    fAresta.cor := clGreen;
+    DesenharRamos(fAresta);
+  end;
+
+  i := 90;
+
+  while i >= 30 do
+  begin
+    fAresta.passo := i;
+    fAresta.marcapasso := fAresta.passo div (fAresta.vezes div 2);
+    fAresta.cor := clMaroon;
+    fAresta.angulo_esquerdo := 20;
+    fAresta.angulo_direito := 20;
+    DesenharRamos(fAresta);
+    i := i - 1;
+  end;
+
+end;
+
+procedure TFractal01.fractal02(PaintBox01: TPaintBox);
+begin
+
+  //Capacete
+
+  fCoordenadas.X := PaintBox01.Width div 2;
+  fCoordenadas.Y := PaintBox01.Height;
+  fAresta.canvas := PaintBox01.Canvas;
+  fAresta.pontoInicial := fCoordenadas;
+  fAresta.vezes := 10;
+  fAresta.angulo := -90;
+  fAresta.passo := 50;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+  fAresta.angulo_esquerdo := 25;
+  fAresta.angulo_direito := 8;
+  fAresta.cor := clRed;
+  DesenharRamos(fAresta);
+
+  fAresta.angulo_esquerdo := 8;
+  fAresta.angulo_direito := 25;
+  fAresta.cor := clBlue;
+  DesenharRamos(fAresta);
+
+end;
+
+end.

@@ -1,0 +1,89 @@
+unit U_Fractal_01;
+
+interface
+
+uses
+  Winapi.Windows, FMX.Objects, U_Fractais;
+
+type
+  TFractal01 = class(TFractais)
+  private
+    var
+      fAresta : TAresta;
+      fCoordenadas : TCoordenadas;
+
+    procedure fractal(PaintBox01 : TPaintBox);
+
+  public
+     constructor Create(PaintBox01 : TPaintBox);
+
+  end;
+
+implementation
+
+{ TFractal01 }
+
+constructor TFractal01.Create(PaintBox01: TPaintBox);
+begin
+  inherited Create;
+
+  fractal(PaintBox01);
+
+end;
+
+procedure TFractal01.fractal(PaintBox01: TPaintBox);
+var
+  i : Integer;
+
+begin
+
+  fCoordenadas.X := PaintBox01.Width / 2;
+  fCoordenadas.Y := PaintBox01.Height;
+  fAresta.canvas := PaintBox01.Canvas;
+  fAresta.pontoInicial := fCoordenadas;
+  fAresta.vezes := 10;
+  fAresta.angulo := -90;
+  fAresta.passo := 86;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+  fAresta.angulo_esquerdo := 20;
+  fAresta.angulo_direito := 20;
+//  fAresta.cor := clYellow;
+  DesenharRamos(fAresta);
+
+  fAresta.passo := 90;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+//  fAresta.cor := clOlive;
+  DesenharRamos(fAresta);
+
+  fAresta.passo := 84;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+//  fAresta.cor := clGreen;
+  DesenharRamos(fAresta);
+
+  i := fAresta.passo;
+
+  while i >= 60 do
+  begin
+    i := i - 4;
+    fAresta.passo := i;
+    fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+//    fAresta.cor := clGreen;
+    DesenharRamos(fAresta);
+  end;
+
+  i := 90;
+
+  while i >= 30 do
+  begin
+    fAresta.passo := i;
+    fAresta.marcapasso := fAresta.passo div (fAresta.vezes div 2);
+//    fAresta.cor := clMaroon;
+    fAresta.angulo_esquerdo := 20;
+    fAresta.angulo_direito := 20;
+    DesenharRamos(fAresta);
+    i := i - 1;
+  end;
+
+end;
+
+end.

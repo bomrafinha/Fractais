@@ -1,0 +1,19 @@
+unit U_Fractais;
+
+interface
+
+uses
+  Vcl.Graphics, System.Generics.Collections;
+
+type
+  TCoordenadas = packed record
+    X : Integer;
+    Y : Integer;
+
+  end;
+
+  TFractais = class (TObject);
+
+implementation
+
+end.

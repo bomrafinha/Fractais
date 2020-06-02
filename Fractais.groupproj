@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{8AEB1A51-27B1-4603-84BD-F8B1A3230ADC}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="FMX\PROJETO\FractaisFMX.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\PROJETO\FractaisVCL.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FractaisFMX">
+        <MSBuild Projects="FMX\PROJETO\FractaisFMX.dproj"/>
+    </Target>
+    <Target Name="FractaisFMX:Clean">
+        <MSBuild Projects="FMX\PROJETO\FractaisFMX.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FractaisFMX:Make">
+        <MSBuild Projects="FMX\PROJETO\FractaisFMX.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FractaisVCL">
+        <MSBuild Projects="VCL\PROJETO\FractaisVCL.dproj"/>
+    </Target>
+    <Target Name="FractaisVCL:Clean">
+        <MSBuild Projects="VCL\PROJETO\FractaisVCL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FractaisVCL:Make">
+        <MSBuild Projects="VCL\PROJETO\FractaisVCL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FractaisFMX;FractaisVCL"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FractaisFMX:Clean;FractaisVCL:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FractaisFMX:Make;FractaisVCL:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -1,0 +1,59 @@
+unit U_Fractais;
+
+interface
+
+uses
+  Vcl.Graphics, System.Generics.Collections;
+
+type
+  TCoordenadas = packed record
+    X : Integer;
+    Y : Integer;
+
+  end;
+
+  TAresta = packed record
+    canvas : TCanvas;
+    pontoInicial : TCoordenadas;
+    angulo : integer;
+    vezes : Integer;
+    passo : integer;
+    marcapasso : Integer;
+    angulo_esquerdo : Integer;
+    angulo_direito : Integer;
+    cor : cardinal;
+    arvore : Integer;
+
+  end;
+
+  TLandscape = packed record
+  private
+    var
+      fArrayFractal : TList<Double>;
+  public
+    var
+      canvas : TCanvas;
+      posicao : Integer;
+      nivelMaximo : Integer;
+      tamanhoMaximo : Integer;
+      pontoMedio : Integer;
+      primeiro : Integer;
+      ultimo : Integer;
+      H : Double;
+      escala : Double;
+      relacao : Double;
+      padrao : Double;
+      mediaPadrao : Double;
+      cor : Cardinal;
+      agua : Cardinal;
+      tamanhoTela : TCoordenadas;
+
+    property arrayFractal : TList<Double> read fArrayFractal write fArrayFractal;
+
+  end;
+
+  TFractais = class (TObject);
+
+implementation
+
+end.

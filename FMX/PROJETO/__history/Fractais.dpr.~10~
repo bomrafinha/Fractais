@@ -1,0 +1,18 @@
+program Fractais;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  U_Fractais in '..\PAS\Fractais\U_Fractais.pas',
+  U_Principal in '..\PAS\U_Principal.pas' {Form1},
+  U_Sort in '..\PAS\Sort\U_Sort.pas',
+  U_Sort_01 in '..\PAS\Sort\U_Sort_01.pas',
+  U_Fractal_01 in '..\PAS\Fractais\U_Fractal_01.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

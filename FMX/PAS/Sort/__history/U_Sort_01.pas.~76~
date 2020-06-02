@@ -1,0 +1,82 @@
+unit U_Sort_01; //Bubble Sort
+
+interface
+
+uses U_Sort, FMX.Layouts, System.Classes, Winapi.Windows, FMX.Dialogs,
+  FMX.Objects, System.SysUtils;
+
+type
+  TSort01 = class(TSort)
+  private
+    procedure sort(layout01 : TLayout);
+
+  public
+    constructor Create(layout01 : TLayout);
+  end;
+
+implementation
+
+{ TSort01 }
+
+constructor TSort01.Create(layout01: TLayout);
+begin
+  inherited Create(layout01);
+  sleep(2000);
+  sort(layout01);
+
+end;
+
+//procedure TSort01.sort(layout01: TLayout);
+//var
+//  i, j : Integer;
+//  ret01 : TRectangle;
+//  ret02 : TRectangle;
+//
+//begin
+//  i := Round(layout01.Width - Distancia);
+//  while i >= Distancia do
+//  begin
+//    j := 0;
+//    while j < i do
+//    begin
+//      ret01 := TRectangle(layout01.FindComponent('Ret' + intToStr(j)));
+//      ret02 := TRectangle(layout01.FindComponent('Ret' + intToStr(j + Distancia)));
+//
+//      if Round(ret01.Height) < Round(ret02.Height) then
+//      begin
+//        troca01(ret01, ret02);
+//      end;
+//      inc(j, Distancia);
+//
+//    end;
+//    dec(i, Distancia);
+//
+//  end;
+//
+//end;
+
+procedure TSort01.sort(layout01: TLayout);
+var
+  i, j : Integer;
+  ret01 : TRetangulo;
+  ret02 : TRetangulo;
+
+begin
+  for i := 0 to 49 do
+  begin
+    for j := 48 downto i do
+    begin
+      ret01 := findComponent(j);
+      ret02 := findComponent(j + 1);
+      if Round(ret01.Height) > Round(ret02.Height) then
+      begin
+        troca01(ret01, ret02);
+      end;
+
+    end;
+
+  end;
+
+end;
+
+end.

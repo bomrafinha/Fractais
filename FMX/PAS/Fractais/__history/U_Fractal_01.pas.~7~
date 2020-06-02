@@ -1,0 +1,43 @@
+unit U_Fractal_01;
+
+interface
+
+uses
+  Math, Winapi.Windows, FMX.Graphics, U_Fractais;
+
+type
+  TFractal01 = class(TFractais)
+  private
+    var
+      fAresta : TAresta;
+      fCoordenadas : TCoordenadas;
+
+    procedure desenharRamos(aresta : TAresta);
+
+    procedure fractal(PaintBox01 : TPaintBox);
+
+  public
+     constructor Create(PaintBox01 : TPaintBox);
+
+  end;
+
+implementation
+
+{ TFractal01 }
+
+constructor TFractal01.Create(PaintBox01: TPaintBox);
+begin
+
+end;
+
+procedure TFractal01.desenharRamos(aresta: TAresta);
+begin
+
+end;
+
+procedure TFractal01.fractal(PaintBox01: TPaintBox);
+begin
+
+end;
+
+end.

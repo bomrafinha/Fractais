@@ -1,0 +1,210 @@
+unit U_Fractal_04;
+
+interface
+
+uses Math, U_Fractais, Vcl.Graphics, Vcl.ExtCtrls, Vcl.Dialogs, 
+  System.SysUtils, System.Classes, Vcl.Forms, System.Generics.Collections;
+
+type
+  TFractal04 = class(TFractais)
+  private
+    procedure fractal(PaintBox01 : TPaintBox);
+    procedure subdivide(paisagem : TLandscape);
+    procedure drawFractal(paisagem : TLandscape; delay : Integer);
+    procedure pintar(canvas : TCanvas; corInicial : cardinal; tamanho : TCoordenadas);
+    procedure desenhaSol(canvas: Tcanvas; inicioX, inicioY, tamanho: integer; cor: cardinal; delay : Integer);
+
+  public
+    constructor Create(PaintBox01 : TPaintBox);
+
+  end;
+
+implementation
+
+{ TFractal04 }
+
+constructor TFractal04.Create(PaintBox01 : TPaintBox);
+begin
+  inherited Create;
+  fractal(PaintBox01);
+
+end;
+
+procedure TFractal04.desenhaSol(canvas: Tcanvas; inicioX, inicioY, tamanho: integer; cor: cardinal; delay : Integer);
+var
+  i: Integer;
+
+begin
+  Canvas.Pen.Color := clYellow;
+  Canvas.FloodFill(inicioX, inicioY, clYellow, fsSurface);
+
+  for i := 1 to (tamanho div 2) do
+  begin
+    Canvas.Ellipse(inicioX + (tamanho - i), inicioY+ (tamanho - i), inicioX + i, inicioY + i);
+    sleep(delay);
+
+  end;
+
+end;
+
+procedure TFractal04.drawFractal(paisagem : TLandscape; delay : Integer);
+var
+  i : Integer;
+  X : Integer;
+  IncrementoX : Integer;
+
+begin
+  with paisagem do
+  begin
+    IncrementoX := tamanhoTela.X div ultimo * 3 div 2;
+    canvas.Pen.Width := 3;
+    canvas.Pen.Color := cor;
+    canvas.MoveTo(-(50 + tamanhoTela.Y), 0);
+
+    for i := 1 to paisagem.arrayFractal.Count - 1 do
+    begin
+
+      canvas.LineTo(X, Round(arrayFractal[i] + tamanhoTela.Y));
+      canvas.MoveTo(X, Round(arrayFractal[i] + tamanhoTela.Y));
+      canvas.Refresh;
+      Inc(X, IncrementoX);
+      sleep(delay);
+
+    end;
+  end;
+
+end;
+
+procedure TFractal04.fractal(PaintBox01 : TPaintBox);
+var
+  paisagem01 : TLandscape;
+  paisagem02 : TLandscape;
+  i : Integer;
+  tamanho : TCoordenadas;
+  delay : integer;
+
+begin
+  Randomize;
+  paisagem01.arrayFractal := TList<Double>.Create;
+  paisagem02.arrayFractal := TList<Double>.Create;
+
+  delay := 75;
+
+
+  with paisagem01 do
+  begin
+    canvas := PaintBox01.Canvas;
+    tamanhoTela.X := PaintBox01.Width;
+    nivelMaximo := 6;
+    primeiro := 1;
+    ultimo := Round(Power(2.0, nivelMaximo));
+
+    for i := 0 to ultimo do
+    begin
+      arrayFractal.Add(0);
+    end;
+
+  end;
+
+  paisagem02 := paisagem01;
+
+  with paisagem01 do
+  begin
+    cor := clGreen;
+    H := 0.4;
+    escala := 100.0;
+    arrayFractal[primeiro] := 100;
+    arrayFractal[ultimo] := 100;
+    relacao := 1.0 / Power(2.0, H);
+    padrao := escala * relacao;
+    tamanhoTela.Y := Round(PaintBox01.Height / 3.5);
+
+  end;
+
+  subdivide(paisagem01);
+  drawFractal(paisagem01, delay);
+
+  with paisagem02 do
+  begin
+    cor := clNavy; //clBlue;
+    H := 0.8;
+    escala := 25.0;
+    arrayFractal[primeiro] := 170;
+    arrayFractal[ultimo] := 170;
+    relacao := 1.0 / Power(2.0, H);
+    padrao := escala * relacao;
+    tamanhoTela.Y := Round(PaintBox01.Height / 2);
+
+  end;
+
+  subdivide(paisagem02);
+  drawFractal(paisagem02, delay);
+
+  tamanho.X := PaintBox01.Width;
+  tamanho.Y :=  PaintBox01.Height;
+  pintar(PaintBox01.Canvas, clSkyBlue, tamanho);
+
+  desenhaSol(PaintBox01.Canvas, 600, 40, 150, clinfobk, delay); //clYellow
+
+
+end;
+
+procedure TFractal04.pintar(canvas: TCanvas; corInicial: cardinal; tamanho : TCoordenadas);
+var
+  i, j : Integer;
+  corPintar : Cardinal;
+
+begin
+  for i := 0 to tamanho.X do
+  begin
+    corPintar := corInicial;
+
+    for j := 0 to tamanho.Y do
+    begin
+      if canvas.Pixels[i,j] = clWhite then
+      begin
+        canvas.Pixels[i,j] := corPintar;
+
+      end else begin
+        corPintar := canvas.Pixels[i,j];
+      end;
+
+    end;
+  end;
+
+end;
+
+procedure TFractal04.subdivide(paisagem : TLandscape);
+var
+  paisagemAuxilar : TLandscape;
+  
+begin
+
+  with paisagem do
+  begin
+    pontoMedio := (primeiro + ultimo) div 2;
+
+    if ((pontoMedio <> primeiro) and (pontoMedio <> ultimo)) then
+    begin
+      arrayFractal[pontoMedio] := (arrayFractal[primeiro] + arrayFractal[ultimo])
+                                  / 2 + (Random(16) - 8.0) / 8.0 * padrao;
+      mediaPadrao := padrao * relacao;
+
+      paisagemAuxilar := paisagem;
+
+      paisagemAuxilar.primeiro := pontoMedio;
+      paisagemAuxilar.pontoMedio := ultimo;
+
+      ultimo := pontoMedio;
+      padrao := mediaPadrao;
+
+      subdivide(paisagem);
+      subdivide(paisagemAuxilar);
+
+    end;
+  
+  end;
+
+end;
+
+end.

@@ -1,0 +1,56 @@
+unit U_Fractal_02;
+
+interface
+
+uses U_Fractais, FMX.Objects, System.UITypes;
+
+type
+  TFractal02 = class(TFractais)
+  private
+    var
+      fAresta : TAresta;
+      fCoordenadas : TCoordenadas;
+
+    procedure fractal(PaintBox01 : TPaintBox);
+
+  public
+     constructor Create(PaintBox01 : TPaintBox);
+
+  end;
+
+implementation
+
+{ TFractal02 }
+
+constructor TFractal02.Create(PaintBox01: TPaintBox);
+begin
+  inherited Create;
+  fractal(PaintBox01);
+
+end;
+
+procedure TFractal02.fractal(PaintBox01: TPaintBox);
+begin
+
+  fCoordenadas.X := PaintBox01.Width div 2;
+  fCoordenadas.Y := PaintBox01.Height;
+  fAresta.canvas := PaintBox01.Canvas;
+  fAresta.pontoInicial := fCoordenadas;
+  fAresta.vezes := 12;
+  fAresta.angulo := -90;
+  fAresta.passo := 65;
+  fAresta.marcapasso := fAresta.passo div fAresta.vezes;
+  fAresta.angulo_esquerdo := 25;
+  fAresta.angulo_direito := 8;
+  fAresta.cor := TAlphaColors.Red;
+  DesenharRamos(fAresta);
+
+  fAresta.angulo_esquerdo := 8;
+  fAresta.angulo_direito := 25;
+  fAresta.cor := TAlphaColors.Blue;
+  DesenharRamos(fAresta);
+
+
+end;
+
+end.

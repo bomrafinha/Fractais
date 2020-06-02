@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/05/21 16:19:48.000.665,C:\Users\Bomrafinha\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\PAS\U_Principal.dfm</Transaction>
+    <Transaction>2018/05/21 16:20:08.000.292,C:\Users\Bomrafinha\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\PROJETO\Fractais.dproj</Transaction>
+    <Transaction>2018/06/14 18:03:00.000.404,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PAS\Sort\U_Sort.pas=</Transaction>
+    <Transaction>2018/06/14 18:03:03.000.645,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PAS\Sort\U_Sort_01.pas=</Transaction>
+    <Transaction>2018/06/14 18:03:13.000.380,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PAS\Fractais\U_Fractal_03.pas=</Transaction>
+    <Transaction>2018/06/14 18:03:13.000.364,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PAS\Fractais\U_Fractal_02.pas=</Transaction>
+    <Transaction>2018/06/14 18:03:13.000.335,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PAS\Fractais\U_Fractal_01.pas=</Transaction>
+    <Transaction>2018/06/14 18:18:37.000.743,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PROJETO\FractaisVCL.dproj=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\VCL\PROJETO\Fractais.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,268 @@
+unit U_Fractal_04e05;
+
+interface
+
+uses U_Fractais, FMX.Objects, FMX.Graphics, System.Math, Winapi.Windows,
+  System.UITypes, System.Classes, System.Generics.Collections, System.Types,
+  FMX.Dialogs, System.SysUtils, FMX.Layouts, Vcl.Graphics, FMX.Forms;
+type
+  TFractal04e05 = class(TFractais)
+  private
+    procedure fractal(Layout01 : TLayout);
+    procedure subdivide(paisagem : TLandscape);
+    procedure drawFractal(paisagem : TLandscape; delay : Integer);
+    procedure pintar(canvas : FMX.Graphics.TCanvas; corInicial : cardinal; tamanho : TCoordenadas);
+    procedure desenhaSol(canvas: FMX.Graphics.TCanvas; inicioX, inicioY, tamanho: integer; cor: cardinal; delay : Integer);
+
+  public
+    constructor Create(Layout01 : TLayout);
+
+  end;
+
+implementation
+
+{ TFractal04e05 }
+
+constructor TFractal04e05.Create(Layout01: TLayout);
+begin
+  inherited Create;
+  fractal(Layout01);
+
+end;
+
+procedure TFractal04e05.desenhaSol(canvas : FMX.Graphics.TCanvas; inicioX, inicioY,
+  tamanho: integer; cor: cardinal; delay: Integer);
+var
+  i: Integer;
+
+begin
+  for i := 1 to (tamanho div 2) do
+  begin
+    with canvas do
+    begin
+      BeginScene;
+      Stroke.Color := cor;
+      StrokeThickness := 3;
+      StrokeJoin := TStrokeJoin.Round;
+      StrokeDash := TStrokeDash.Solid;
+      StrokeCap := TStrokeCap.Round;
+
+      DrawEllipse(RectF(inicioX + (tamanho - i), inicioY+ (tamanho - i), inicioX + i, inicioY + i), 100);
+
+      EndScene;
+    end;
+    sleep(delay);
+
+  end;
+
+end;
+
+procedure TFractal04e05.drawFractal(paisagem: TLandscape; delay: Integer);
+var
+  i : Integer;
+  X : Integer;
+  IncrementoX : Integer;
+
+begin
+  with paisagem do
+  begin
+    IncrementoX := Round(tamanhoTela.X / ultimo * 3 / 2);
+    for i := 1 to paisagem.arrayFractal.Count - 1 do
+    begin
+
+      with canvas do
+      begin
+        BeginScene;
+        Stroke.Color := cor;
+        StrokeThickness := 3;
+        StrokeJoin := TStrokeJoin.Round;
+        StrokeDash := TStrokeDash.Solid;
+        StrokeCap := TStrokeCap.Round;
+        if i >= 1 then
+        begin
+          DrawLine(PointF(X - IncrementoX, Round(arrayFractal[i-1] + tamanhoTela.Y)), PointF(X, Round(arrayFractal[i] + tamanhoTela.Y)), 100);
+        end else begin
+          DrawLine(PointF(-(50 + tamanhoTela.X), 0), PointF(X, Round(arrayFractal[i] + tamanhoTela.Y)), 100);
+        end;
+        EndScene;
+      end;
+
+      Inc(X, IncrementoX);
+      sleep(delay);
+
+    end;
+  end;
+
+end;
+
+procedure TFractal04e05.fractal(Layout01: TLayout);
+var
+  paisagem01 : TLandscape;
+  paisagem02 : TLandscape;
+  i : Integer;
+  tamanho : TCoordenadas;
+  delay : integer;
+
+begin
+  Randomize;
+  paisagem01.arrayFractal := TList<Double>.Create;
+  paisagem02.arrayFractal := TList<Double>.Create;
+
+  delay := 75;
+
+  with paisagem01 do
+  begin
+    canvas := Layout01.Canvas;
+    tamanhoTela.X := Layout01.Width;
+    nivelMaximo := 6;
+    primeiro := 1;
+    ultimo := Round(Power(2.0, nivelMaximo));
+
+    for i := 0 to ultimo do
+    begin
+      arrayFractal.Add(0);
+    end;
+
+  end;
+
+  paisagem02 := paisagem01;
+
+  with paisagem01 do
+  begin
+    cor := TAlphaColors.Green;
+    H := 0.4;
+    escala := 100.0;
+    arrayFractal[primeiro] := 100;
+    arrayFractal[ultimo] := 100;
+    relacao := 1.0 / Power(2.0, H);
+    padrao := escala * relacao;
+    tamanhoTela.Y := Round(Layout01.Height / 3.5);
+
+  end;
+
+  subdivide(paisagem01);
+  drawFractal(paisagem01, delay);
+
+  with paisagem02 do
+  begin
+    cor := TAlphaColors.Blue;
+    H := 0.8;
+    escala := 25.0;
+    arrayFractal[primeiro] := 170;
+    arrayFractal[ultimo] := 170;
+    relacao := 1.0 / Power(2.0, H);
+    padrao := escala * relacao;
+    tamanhoTela.Y := Round(Layout01.Height / 2);
+
+  end;
+
+//  subdivide(paisagem02);
+//  drawFractal(paisagem02, delay);
+
+  tamanho.X := Layout01.Width;
+  tamanho.Y :=  Layout01.Height;
+
+  Layout01.Locked := False;
+
+  pintar(Layout01.Canvas, TAlphaColors.Skyblue, tamanho);
+
+//  desenhaSol(Layout01.Canvas, 600, 40, 150, TAlphaColors.Yellow, delay);
+
+
+
+end;
+
+procedure TFractal04e05.pintar(canvas : FMX.Graphics.TCanvas; corInicial: cardinal; tamanho: TCoordenadas);
+var
+  i, j : Integer;
+  corPintar : Cardinal;
+  vBitMapData : TBitmapData;
+  canvas02 : vcl.Graphics.TCanvas;
+
+begin
+  canvas02 := vcl.Graphics.TCanvas.Create;
+
+
+
+  for i := 0 to Round(tamanho.X) do
+  begin
+    corPintar := corInicial;
+
+    for j := 0 to Round(tamanho.Y) do
+    begin
+      canvas02 := vcl.Graphics.TCanvas(canvas);
+      if canvas02.Pixels[i,j] = clWhite then
+      begin
+        canvas02.Pixels[i,j] := corPintar;
+
+      end else begin
+        corPintar := canvas02.Pixels[i,j];
+      end;
+      canvas := fmx.Graphics.TCanvas(canvas02);
+      application.ProcessMessages;
+
+    end;
+  end;
+
+
+  canvas.Assign(canvas02);
+
+//  if canvas.Bitmap.Map(TMapAccess.ReadWrite, vBitMapData) then
+//  begin
+//    try
+//      for i := 0 to Round(tamanho.X) do
+//      begin
+//        corPintar := corInicial;
+//        for j := 0 to Round(tamanho.Y) do
+//        begin
+//          if vBitmapData.GetPixel(i,j) = 0 then
+//          begin
+//            vBitmapData.SetPixel(i, j, corPintar);
+//
+//          end else begin
+//            corPintar := vBitmapData.GetPixel(i,j);
+//
+//          end;
+//        end;
+//      end;
+//    finally
+//      canvas.Bitmap.Unmap(vBitMapData);
+//    end;
+//  end;
+
+end;
+
+procedure TFractal04e05.subdivide(paisagem: TLandscape);
+var
+  paisagemAuxilar : TLandscape;
+
+begin
+
+  with paisagem do
+  begin
+    pontoMedio := (primeiro + ultimo) div 2;
+
+    if ((pontoMedio <> primeiro) and (pontoMedio <> ultimo)) then
+    begin
+      arrayFractal[pontoMedio] := (arrayFractal[primeiro] + arrayFractal[ultimo])
+                                  / 2 + (Random(16) - 8.0) / 8.0 * padrao;
+      mediaPadrao := padrao * relacao;
+
+      paisagemAuxilar := paisagem;
+
+      paisagemAuxilar.primeiro := pontoMedio;
+      paisagemAuxilar.pontoMedio := ultimo;
+
+      ultimo := pontoMedio;
+      padrao := mediaPadrao;
+
+      subdivide(paisagem);
+      subdivide(paisagemAuxilar);
+
+    end;
+
+  end;
+
+end;
+
+end.
