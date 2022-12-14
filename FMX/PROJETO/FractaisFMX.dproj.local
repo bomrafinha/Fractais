@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2018/06/06 11:02:27.000.737,C:\Users\Bomrafinha\Documents\Embarcadero\Studio\Projects\Unit1.fmx=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes02\PAS\U_Principal.fmx</Transaction>
-    <Transaction>2018/06/06 11:03:48.000.095,C:\Users\Bomrafinha\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes02\PROJETO\Fractais.dproj</Transaction>
-    <Transaction>2018/06/14 14:44:28.000.845,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\PROJETO\FractaisFMX.dproj=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\PROJETO\Fractais.dproj</Transaction>
+    <Transaction>2018/06/06 11:02:27.000.737,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes02\PAS\U_Principal.fmx=C:\Users\Bomrafinha\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2018/06/06 11:03:48.000.095,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes02\PROJETO\Fractais.dproj=C:\Users\Bomrafinha\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2018/06/14 14:44:28.000.845,D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\PROJETO\Fractais.dproj=D:\Trabalho\Ridge Dynamics (Rafael Rossa)\Softwares\Fractais\Fontes\PROJETO\FractaisFMX.dproj</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
-		<NoProfile iOSSimulator="iPhone5" Android="3100e5d3c5029300"/>
+		<NoProfile iOSSimulator="iPhone5" Android=""/>
 	</ActiveMobileDevice>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="android-support-v4.dex.jar"/>
@@ -16,21 +16,24 @@
     <File Path="google-play-billing.dex.jar"/>
     <File Path="google-play-licensing.dex.jar"/>
     <File Path="google-play-services.dex.jar"/>
-    <File Path="..\..\FMX"/>
-    <File Path="..\PAS"/>
-    <File Path="..\PAS\Fractais"/>
+    <File Path="android-support-v4.dex.jar"/>
+    <File Path="cloud-messaging.dex.jar"/>
+    <File Path="fmx.dex.jar"/>
+    <File Path="google-analytics-v2.dex.jar"/>
+    <File Path="google-play-billing.dex.jar"/>
+    <File Path="google-play-licensing.dex.jar"/>
+    <File Path="google-play-services.dex.jar"/>
     <File Path="..\PAS\Fractais\U_Fractais.pas"/>
     <File Path="..\PAS\Fractais\U_Fractal_01.pas"/>
     <File Path="..\PAS\Fractais\U_Fractal_02.pas"/>
     <File Path="..\PAS\Fractais\U_Fractal_03.pas"/>
     <File Path="..\PAS\Fractais\U_Fractal_06.pas"/>
-    <File Path="..\PAS\Sort"/>
+    <File Path="..\PAS\U_Principal.pas"/>
+    <File Path="..\PAS\U_Principal.fmx"/>
     <File Path="..\PAS\Sort\U_Sort.pas"/>
     <File Path="..\PAS\Sort\U_Sort_01.pas"/>
     <File Path="..\PAS\Sort\U_Sort_02.pas"/>
     <File Path="..\PAS\Sort\U_Sort_03.pas"/>
     <File Path="..\PAS\Sort\U_Sort_04.pas"/>
-    <File Path="..\PAS\U_Principal.pas"/>
-    <File Path="..\PAS\U_Principal.fmx"/>
   </ProjectSortOrder>
 </BorlandProject>
